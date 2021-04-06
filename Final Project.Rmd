@@ -1,0 +1,45 @@
+---
+title: "SL Final Project: IMDB Movie Reviews"
+author: "Jake Greenberg - `jgreenberg5342@floridapoly.edu`, Wyatt Smith - `wsmith4725@floridapoly.edu`"
+output: 
+  html_notebook:
+    toc: true
+---
+
+
+# Preparation
+
+```{r, warning=FALSE, message=FALSE}
+library(tidyverse)
+```
+
+Insert the dataset to be used
+```{r, warning=FALSE, message=FALSE}
+IMDB <- read_csv("https://raw.githubusercontent.com/wsmith867/SL_Project/master/IMDB_movies.csv")
+```
+
+Variable            |    Description                  |
+--------------------|---------------------------------|
+`Rank`              | IMDB Ranking                    | 
+`Title`             | Title Name                      | 
+`Genre`             | Category of Movie               | 
+`Description`       | Plot Description                | 
+`Director`          | Director Name                   | 
+`Actors`            | Actor Names                     | 
+`Year`              | Year Released                   | 
+`Runtime (Minutes)` | Duration in minutes             | 
+`Rating`            | IMDB Rating                     | 
+`Votes`             | Number of votes received        | 
+`Revenue (Millions)`| Total Movie Sales               | 
+`Metascore`         | Metascore Rating (Out of 100)   | 
+
+
+```{r}
+IMDB %>% 
+  sample_n(10)
+```
+
+
+
+
+
