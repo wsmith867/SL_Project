@@ -1,24 +1,37 @@
 ---
 title: "SL Final Project: IMDB Movie Reviews"
-author: "Jake Greenberg - `jgreenberg5342@floridapoly.edu`, Wyatt Smith - `wsmith4725@floridapoly.edu`"
+author: 
+  - "Jake Greenberg - `jgreenberg5342@floridapoly.edu`" 
+  - "Wyatt Smith - `wsmith4725@floridapoly.edu`"
 output: 
   html_notebook:
     toc: true
+    toc_float: true
 ---
 
 
 # Preparation
 
+## Libraries loaded
 ```{r, warning=FALSE, message=FALSE}
 library(tidyverse)
 ```
 
-Insert the dataset to be used
+
+## Data set Importation
 ```{r, warning=FALSE, message=FALSE}
 IMDB <- read_csv("https://raw.githubusercontent.com/wsmith867/SL_Project/master/IMDB_movies.csv")
 ```
 
-Variable            |    Description                  |
+
+# Introduction
+
+The medium of Movies has come a long way over the years from when the first motion pictures were introduced.  From the advancements in technology, whether it is CGI or Practical Effects, to how stories are developed and told, Movies has become one of the most easily recognizable and thought of medium for art and story telling.  Every time a new trailer for a movie comes out, it jumps to #1 trending on social media or Youtube, with millions of people seeing and reacting to these up coming movies.  Movies have become so popular in fact that not only do they cost millions to make, but also make millions on ticket sales.  Sometimes, depending on the movie, entire theaters sell out seats on opening day and maybe even the following day.  It comes to no surprise that when studios are making a movie, that they would want to turn a profit from the amount of money being spent on creating the movie.  
+
+A good point of reference on knowing how well a movie will do is the reviews it has received.  This will be the main goal of this report, to find variables that could potentially predict a movie's rating.  Given the nature of movies, some variables already seem like most obvious predictors in a movie's rating.  These being the actors in the movie, as that is a main advertisement with movies, who is directing the movie, and the genre of the movie.  We will be including these variables into our models, as well as exploring other potential variables for creating models.
+
+# Data Preparation
+Variable            | Description                     |
 --------------------|---------------------------------|
 `Rank`              | IMDB Ranking                    | 
 `Title`             | Title Name                      | 
@@ -28,15 +41,19 @@ Variable            |    Description                  |
 `Actors`            | Actor Names                     | 
 `Year`              | Year Released                   | 
 `Runtime (Minutes)` | Duration in minutes             | 
-`Rating`            | IMDB Rating                     | 
+`Rating`            | IMDB Rating (Out of 10)         | 
 `Votes`             | Number of votes received        | 
 `Revenue (Millions)`| Total Movie Sales               | 
 `Metascore`         | Metascore Rating (Out of 100)   | 
+_Table of variables and their description_
 
+As we can see in the above table, this data set has two different rating scores, one being out of 10, the other being out of 100.  For the purpose of simplicity, we will convert the IMDB rating to be out of 100 by multiplying the values by 10.  With that we will then take the average of the rating from IMDB and the rating from Metacritic to have one rating variable for each movie.
 
 ```{r}
-IMDB %>% 
-  sample_n(10)
+IMDB <- IMDB %>% 
+  mutate(Rating = Rating * 10) %>% 
+  mutate(Ave_Rating = (Rating+Metascore)/2)
+head(IMDB)
 ```
 
 
